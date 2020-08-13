@@ -22,7 +22,7 @@ def get_abstract(link):
 # main function starts here
 
 if(len(sys.argv) != 2 and len(sys.argv) != 3):
-    print("usage: ./crawl_cvpr.py <url> [output_filename]")
+    print("usage: ./crawl_icml.py <url> [output_filename]")
     sys.exit(0);
 
 url=sys.argv[1];
@@ -34,11 +34,11 @@ soup=BeautifulSoup(resp.text, 'html.parser')
 
 with open(output_filename, mode='w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',', quotechar='"');
-    for item in soup.find_all('dt', {'class':'ptitle'}):
-        title = item.find('a')
-        link = title['href']
-        link = urllib.parse.urljoin(BASE, link)
+    for item in soup.find_all('div', {'class':'paper'}):
+        title = item.find('p', {'class':'title'})
+        link = item.find('p', {'class':'links'}).find('a')['href']
         article_title = title.text.strip()
         abstract = get_abstract(link)
+        print('title = '+article_title)
         writer.writerow([article_title, abstract])
 

@@ -22,7 +22,7 @@ def get_abstract(link):
 # main function starts here
 
 if(len(sys.argv) != 2 and len(sys.argv) != 3):
-    print("usage: ./crawl_cvpr.py <url> [output_filename]")
+    print("usage: ./crawl_iccv.py <url> [output_filename]")
     sys.exit(0);
 
 url=sys.argv[1];
