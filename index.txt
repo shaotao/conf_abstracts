@@ -1,0 +1,52 @@
+Artificial Intelligence:
+* AAAI
+* CVPR
+* ICCV
+* ICML
+* KDD
+* NIPS
+
+Hardware and Architecture
+* ASPLOS
+* DAC
+* HPCA
+* ISCA
+* MICRO
+
+Application and Media
+* ACM-MM
+* I3DG: ACM-SIGGRAPH Interactive 3D Graphics
+* SIGGRAPH
+* SIGIR
+* www
+
+System Technolgy
+* CCS
+* ICDCS
+* ICNP
+* INFOCOM
+* MOBICOM
+* MOBISYS
+* NSDI
+* PODC
+* SIGCOMM
+* IEEE Symposium on Security and Privacy
+
+Software Engineering
+* CAV
+* FM
+* ICFP
+* ICSE
+
+Algorithm and Theory
+* STOC
+* SODA
+* FOCS
+* CRYPTO
+* COLT
+
+Databases
+* ICDE
+* PODC* SIGMOD
+* VLDB
+
