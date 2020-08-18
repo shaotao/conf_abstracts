@@ -47,6 +47,6 @@ Algorithm and Theory
 
 Databases
 * ICDE
-* PODC* SIGMOD
+* SIGMOD
 * VLDB
 
