@@ -6,34 +6,25 @@ from bs4 import BeautifulSoup
 import csv
 import urllib
 import re
-import json
 
 
 # main function starts here, url
-# usage: ./crawl_icde.py <url>
+# usage: ./crawl_sigmod.py <url>
 
 
-BASE="https://ieeexplore.ieee.org"
+BASE="https://dl.acm.org"
 
 def get_abstract(link):
     resp = requests.get(link)
-    lines = resp.text.split("\n");
-    target_line = None;
-    for line in lines:
-        line = line.strip();
-        if (line.startswith("global.document.metadata=")):
-            target_line = line;
-            break;
-    if (target_line == None):
-        raise Exception("failed to get abstract!");
-    obj = json.loads(target_line.lstrip("global.document.metadata=")[0:-1])
-    #print(json.dumps(obj, separators=(",", ":"), indent=2))
-    return obj['abstract'];
+    soup = BeautifulSoup(resp.text, 'html.parser');
+    item = soup.find('div', {"class":"abstractSection abstractInFull"}).find('p');
+    abstract = item.text.strip() if item is not None else ""
+    return abstract
 
 # main function starts here
 
 if(len(sys.argv) != 2 and len(sys.argv) != 3):
-    print("usage: ./crawl_www.py <url> [output_filename]")
+    print("usage: ./crawl_mm.py <url> [output_filename]")
     sys.exit(0);
 
 url=sys.argv[1];
@@ -50,10 +41,10 @@ soup=BeautifulSoup(resp.text, 'html.parser')
 
 with open(output_filename, mode='w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',', quotechar='"');
-    for item in soup.find_all('li', {'class':'entry inproceedings'}):
-        title = item.find('span', {'class':'title'})
+    for item in soup.find_all('h5', {'class':'issue-item__title'}):
+        title = item.find('a')
+        link = urllib.parse.urljoin(BASE, title['href'])
         article_title = re.sub("\s+", " ", title.text.strip())
-        link = item.find('nav', {'class':'publ'}).find('li').find('a')['href']
         abstract = get_abstract(link)
         print('title = '+article_title)
         writer.writerow([article_title, abstract])
